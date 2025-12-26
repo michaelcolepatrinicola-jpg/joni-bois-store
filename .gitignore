@@ -1,0 +1,24 @@
+# System Files
+.DS_Store
+Thumbs.db
+*.zip
+release_v4/
+release_v5/
+joni_bois_live_ready.zip
+joni_bois_v5_netlify_ready.zip
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+
+# Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo

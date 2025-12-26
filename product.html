@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Joni Bois A-RT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Metal+Mania&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="./assets/signature_logo.png" alt="Joni Bois A-RT" class="nav-logo">
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html#collection">SHOP ALL</a>
+                <div class="cart-icon">CART (0)</div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="product-page-container">
+        <div class="container">
+            <div class="product-layout">
+
+                <!-- Left: Gallery -->
+                <div class="product-gallery">
+                    <div class="main-image digital-dye-container">
+                        <div id="product-dye-layer" class="dye-overlay dye-white"></div>
+                        <img id="product-main-img" src="" alt="Product Image">
+                    </div>
+                    <div class="thumbnails" id="product-thumbnails">
+                        <!-- Thumbs injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Right: Info -->
+                <div class="product-info-panel">
+                    <h1 id="product-title" class="glitch-text">PRODUCT TITLE</h1>
+                    <p id="product-price" class="price">$0.00</p>
+
+                    <div class="color-selection" style="margin-bottom: 30px;">
+                        <p style="font-size: 0.9rem; margin-bottom: 10px; color: #888;">SELECT COLOR</p>
+                        <div class="color-swatch-container">
+                            <div class="color-swatch swatch-white selected" onclick="updateProductColor('white')"></div>
+                            <div class="color-swatch swatch-black" onclick="updateProductColor('black')"></div>
+                            <div class="color-swatch swatch-red" onclick="updateProductColor('red')"></div>
+                            <div class="color-swatch swatch-blue" onclick="updateProductColor('blue')"></div>
+                            <div class="color-swatch swatch-grey" onclick="updateProductColor('grey')"></div>
+                            <div class="color-swatch swatch-acid" onclick="updateProductColor('acid')"></div>
+                        </div>
+                    </div>
+
+                    <p id="product-description" class="description">Description loading...</p>
+                    <div class="product-actions">
+                        <!-- Size Selector placeholder -->
+                        <div class="size-selector">
+                            <button class="size-btn">S</button>
+                            <button class="size-btn">M</button>
+                            <button class="size-btn">L</button>
+                            <button class="size-btn">XL</button>
+                        </div>
+                        <button id="add-to-cart-btn" class="btn-add-large">ADD TO CART</button>
+                    </div>
+
+                    <div class="accordion-container">
+                        <div class="accordion-item">
+                            <button class="accordion-header">DESCRIPTION <span>+</span></button>
+                            <div class="accordion-content">
+                                <p id="product-desc">...</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">SIZE GUIDE <span>+</span></button>
+                            <div class="accordion-content">
+                                <p>Boxy, oversized fit. Size down for a regular fit.</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <button class="accordion-header">SHIPPING <span>+</span></button>
+                            <div class="accordion-content">
+                                <p>Ships in 3-5 business days. Worldwide shipping available.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Joni Bois A-RT.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
