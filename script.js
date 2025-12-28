@@ -444,7 +444,7 @@ if (productAddToBagBtn) {
         const title = document.getElementById('product-title').innerText;
         const price = document.getElementById('product-price').innerText;
         const img = document.getElementById('product-main-img').src;
-        
+
         // Get selected size (if any)
         let size = 'ONE SIZE';
         const sizeSelect = document.querySelector('.size-selector .size-btn.active');
@@ -464,3 +464,54 @@ if (productAddToBagBtn) {
     });
 }
 
+
+/* =========================================
+   SIDE NAVIGATION TOGGLE
+   ========================================= */
+const menuToggle = document.querySelector('.menu-toggle');
+const sideNav = document.querySelector('.side-nav');
+
+if (menuToggle && sideNav) {
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        sideNav.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside (optional polish)
+    document.addEventListener('click', (e) => {
+        if (!sideNav.contains(e.target) && !menuToggle.contains(e.target) && sideNav.classList.contains('active')) {
+            menuToggle.classList.remove('active');
+            sideNav.classList.remove('active');
+        }
+    });
+
+    // Close menu when clicking a link
+    const navLinks = sideNav.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            sideNav.classList.remove('active');
+        });
+    });
+}
+
+/* =========================================
+   STATIC PAGE TRANSITION
+   ========================================= */
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function (e) {
+        const overlay = document.querySelector('.static-transition-overlay');
+
+        // Prevent immediate navigation
+        e.preventDefault();
+        const targetUrl = this.getAttribute('href');
+
+        // Trigger the noise
+        if (overlay) overlay.classList.add('active');
+
+        // After 500ms, go to the new page
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 500);
+    });
+});

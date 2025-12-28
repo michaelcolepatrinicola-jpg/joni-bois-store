@@ -17,11 +17,8 @@
 }
 
 body {
-    background-color: var(--bg-color);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('./assets/dark_silk_bg.jpg');
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
+    background-color: transparent;
+    /* background-image removed for video background */
     color: var(--text-main);
     font-family: var(--font-body);
     overflow-x: hidden;
@@ -55,11 +52,8 @@ img {
 
 /* Navigation */
 nav {
-    padding: 40px 0;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    z-index: 100;
+    display: none;
+    /* Hiding original top nav */
 }
 
 .nav-content {
@@ -211,23 +205,124 @@ nav {
 
     50% {
         opacity: 0.8;
-        transform: translate(-50%, -50%) scale(1.1);
+        transform: translate(-50%, -50%) scale(1.4);
+    }
+}
+
+/* =========================================
+   VIDEO BACKGROUND
+   ========================================= */
+.video-background-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -100;
+    overflow: hidden;
+    background: #000;
+    /* Fallback */
+}
+
+.back-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    filter: contrast(120%) grayscale(80%) brightness(0.6);
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.2;
+    z-index: -99;
+    pointer-events: none;
+}
+
+/* =========================================
+   CYBER SIGIL OVERLAY
+   ========================================= */
+.logo-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sigil-container {
+    position: absolute;
+    z-index: -1;
+    /* Places it behind the logo */
+    width: 120%;
+    /* Slightly larger than the logo */
+    filter: blur(2px);
+    opacity: 0.6;
+    transform: scale(1.4);
+    /* Makes the sharper thorns wrap further around the logo */
+}
+
+.cyber-sigil {
+    fill: none;
+    stroke: #00FFFF;
+    /* Teal Base */
+    stroke-width: 2;
+    filter: drop-shadow(0 0 10px #00FFFF) drop-shadow(0 0 20px #FF00FF);
+    animation: cyber-pulse 4s infinite alternate ease-in-out;
+}
+
+@keyframes cyber-pulse {
+    0% {
+        stroke: #00FFFF;
+        filter: drop-shadow(0 0 5px #00FFFF) drop-shadow(0 0 15px #FF00FF);
+        transform: scale(1);
+    }
+
+    100% {
+        stroke: #FF00FF;
+        filter: drop-shadow(0 0 15px #FF00FF) drop-shadow(0 0 25px #00FFFF);
+        transform: scale(1.05);
+    }
+}
+
+/* Adding a sharper 'shiver' animation to the aggressive path */
+.cyber-sigil.aggressive {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: cyber-pulse 4s infinite alternate ease-in-out,
+        sigil-draw 6s infinite alternate linear;
+}
+
+@keyframes sigil-draw {
+    from {
+        stroke-dashoffset: 1000;
+    }
+
+    to {
+        stroke-dashoffset: 0;
     }
 }
 
 .glitch-text {
-    font-family: var(--font-heading);
-    font-size: 7rem;
-    /* Larger */
-    color: transparent;
-    -webkit-text-stroke: 2px var(--text-main);
+    color: white;
+    font-size: 8rem;
+    font-weight: bold;
     text-transform: uppercase;
     position: relative;
+    display: inline-block;
     margin-bottom: 20px;
-    letter-spacing: 5px;
-    animation: text-flicker 3s infinite;
 }
 
+/* Create two layers for the RGB split */
 .glitch-text::before,
 .glitch-text::after {
     content: attr(data-text);
@@ -236,53 +331,30 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
+    background: #000;
+    /* Match background color to hide main text behind */
 }
 
+/* Blue/Cyan Offset Layer */
 .glitch-text::before {
     left: 2px;
-    text-shadow: -1px 0 #ff00c1;
-    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    text-shadow: -1px 0 #00ffff;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
 }
 
+/* Red/Magenta Offset Layer */
 .glitch-text::after {
     left: -2px;
-    text-shadow: -1px 0 #00fff9;
+    text-shadow: -1px 0 #ff00ff;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     animation: glitch-anim-2 3s infinite linear alternate-reverse;
 }
 
-.hero-subtitle {
-    font-family: var(--font-body);
-    font-size: 1.2rem;
-    color: var(--accent-neon);
-    letter-spacing: 10px;
-    margin-bottom: 50px;
-    font-weight: 600;
-}
-
-.btn-hero-neon {
-    display: inline-block;
-    padding: 20px 60px;
-    background: transparent;
-    border: 1px solid var(--accent-neon);
-    color: var(--accent-neon);
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    letter-spacing: 3px;
-    text-decoration: none;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-hero-neon:hover {
-    background: var(--accent-neon);
-    color: #000;
-    box-shadow: 0 0 50px var(--accent-neon);
-}
-
+/* Animation Keyframes: Random Slices */
 @keyframes glitch-anim-1 {
     0% {
-        clip-path: inset(20% 0 30% 0);
+        clip-path: inset(20% 0 80% 0);
     }
 
     20% {
@@ -316,19 +388,19 @@ nav {
     }
 
     40% {
-        clip-path: inset(70% 0 40% 0);
+        clip-path: inset(10% 0 80% 0);
     }
 
     60% {
-        clip-path: inset(50% 0 80% 0);
+        clip-path: inset(70% 0 10% 0);
     }
 
     80% {
-        clip-path: inset(20% 0 10% 0);
+        clip-path: inset(50% 0 30% 0);
     }
 
     100% {
-        clip-path: inset(90% 0 30% 0);
+        clip-path: inset(20% 0 40% 0);
     }
 }
 
@@ -1173,11 +1245,13 @@ nav {
 .swatch-acid {
     background: #ccff00;
 }
+
 /* =========================================
    NEWSLETTER TRANSMISSION MODAL
    ========================================= */
 .transmission-modal {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
@@ -1236,7 +1310,7 @@ nav {
 .transmission-body {
     padding: 30px;
     background-image: linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+        linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
     background-size: 20px 20px;
 }
 
@@ -1276,8 +1350,15 @@ nav {
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 
@@ -1291,7 +1372,8 @@ nav {
     width: 100%;
     height: 100%;
     z-index: 9999;
-    pointer-events: none; /* Let clicks pass through when closed */
+    pointer-events: none;
+    /* Let clicks pass through when closed */
 }
 
 .cart-overlay {
@@ -1440,7 +1522,395 @@ nav {
 }
 
 @keyframes slideInRight {
-    from { opacity: 0; transform: translateX(20px); }
-    to { opacity: 1; transform: translateX(0); }
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
+/* =========================================
+   ASYMMETRIC SIDE-NAV & TOGGLE
+   ========================================= */
+/* Toggle Button Design */
+.menu-toggle {
+    position: fixed;
+    top: 40px;
+    right: 40px;
+    z-index: 1001;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.bar {
+    width: 35px;
+    height: 3px;
+    background-color: #00FFFF;
+    /* Teal */
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 5px #00FFFF);
+}
+
+/* Hide Menu by Default */
+.side-nav {
+    display: block !important;
+    position: fixed;
+    right: 0;
+    /* Updated: slides from right */
+    top: 0;
+    /* Full height */
+    z-index: 1000;
+    mix-blend-mode: normal;
+    /* Changed for visibility */
+    transform: translateX(110%);
+    /* Hidden off-screen right */
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+    background: rgba(0, 0, 0, 0.95);
+    /* Dark vibrance overlay */
+    height: 100vh;
+    width: 300px;
+    /* Fixed width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #333;
+}
+
+/* Active State (When Opened) */
+.side-nav.active {
+    transform: translateX(0);
+}
+
+/* Hamburger to 'X' Animation */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+    background-color: #FF00FF;
+    /* Pink when active */
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+    background-color: #FF00FF;
+}
+
+.side-nav .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center align */
+    gap: 30px;
+    list-style: none;
+    width: 100%;
+}
+
+/* CRT & Grain Overlays */
+.side-nav::before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    z-index: 1;
+    /* Sits above background, below text */
+    pointer-events: none;
+}
+
+.side-nav::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Condition.png');
+    opacity: 0.05;
+    /* Subtle grain */
+    z-index: 2;
+    pointer-events: none;
+    animation: grain-flicker 0.2s infinite;
+}
+
+/* Ensure Nav Links stay on top */
+.nav-links {
+    position: relative;
+    z-index: 10;
+}
+
+/* Subtle Screen Flicker Animation */
+@keyframes grain-flicker {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-1%, -1%);
+    }
+
+    30% {
+        transform: translate(1%, 1%);
+    }
+
+    50% {
+        transform: translate(-0.5%, 1.5%);
+    }
+
+    70% {
+        transform: translate(1.5%, -0.5%);
+    }
+
+    90% {
+        transform: translate(-1%, 1%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.side-nav a {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--text-main);
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: inline-block;
+    letter-spacing: 2px;
+}
+
+.side-nav a:hover {
+    color: var(--accent-neon);
+    transform: translateX(-10px) skewX(-10deg);
+    text-shadow: 2px 2px #ff00ff;
+}
+
+.side-nav a::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--accent-neon);
+    overflow: hidden;
+    transition: 0.3s;
+    width: 0;
+    border-right: 2px solid var(--accent-neon);
+    white-space: nowrap;
+}
+
+.side-nav a:hover::before {
+    width: 100%;
+}
+
+/* =========================================
+   UPDATED GLITCH TYPOGRAPHY
+   ========================================= */
+/* Chromatic Aberration Container */
+.logo-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* The Glitch Layers */
+.hero-logo {
+    position: relative;
+    color: white;
+    font-size: 8rem;
+    /* Match your current size */
+    text-transform: uppercase;
+    z-index: 5;
+    font-family: var(--font-heading);
+    letter-spacing: 5px;
+    margin: 0;
+}
+
+.hero-logo::before,
+.hero-logo::after {
+    content: "JONI BOIS";
+    /* MUST match your logo text exactly */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+/* Red Offset */
+.hero-logo::before {
+    color: #ff00c1;
+    /* Pinkish-Red */
+    z-index: -1;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+/* Blue Offset */
+.hero-logo::after {
+    color: #00fff9;
+    /* Cyan-Teal */
+    z-index: -2;
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+/* Glitch Movement Frames */
+@keyframes glitch-anim-1 {
+    0% {
+        transform: translate(0);
+    }
+
+    20% {
+        transform: translate(-3px, 3px);
+    }
+
+    40% {
+        transform: translate(-3px, -3px);
+    }
+
+    60% {
+        transform: translate(3px, 3px);
+    }
+
+    80% {
+        transform: translate(3px, -3px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+@keyframes glitch-anim-2 {
+    0% {
+        transform: translate(0);
+    }
+
+    25% {
+        transform: translate(3px, -3px);
+    }
+
+    50% {
+        transform: translate(-3px, 3px);
+    }
+
+    75% {
+        transform: translate(3px, 3px);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}
+
+/* =========================================
+   STATIC TRANSITION OVERLAY
+   ========================================= */
+.static-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Condition.png');
+    background-size: 200px;
+    z-index: 9999;
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+}
+
+/* The "Flicker" Animation */
+@keyframes static-flicker {
+    0% {
+        background-position: 0 0;
+        opacity: 0.8;
+    }
+
+    20% {
+        background-position: 10% 10%;
+        opacity: 1;
+    }
+
+    40% {
+        background-position: -10% 20%;
+        opacity: 0.8;
+    }
+
+    60% {
+        background-position: 15% -10%;
+        opacity: 1;
+    }
+
+    80% {
+        background-position: -5% -5%;
+        opacity: 0.8;
+    }
+
+    100% {
+        background-position: 0 0;
+        opacity: 1;
+    }
+}
+
+.static-transition-overlay.active {
+    display: block;
+    animation: static-flicker 0.1s infinite;
+}
+
+/* =========================================
+   POWER STATEMENT (SERIOUS)
+   ========================================= */
+/* =========================================
+   POWER STATEMENT (SERIOUS)
+   ========================================= */
+.power-statement {
+    /* Default: Fixed (Removed for Centered Option) */
+    /* position: fixed; bottom: 40px; right: 40px; writing-mode: vertical-rl; z-index: 20; */
+}
+
+/* Centered Variation */
+.power-statement.centered {
+    margin-top: 40px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.power-statement p {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.3rem;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    opacity: 0.9;
+
+    /* Removed vertical border for centered layout */
+    border: none;
+    padding: 0;
+
+    /* Added bottom border for semantic weight */
+    border-bottom: 2px solid #00FFFF;
+    display: inline-block;
+    padding-bottom: 5px;
+
+    margin: 0;
+    animation: none;
+}

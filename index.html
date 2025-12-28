@@ -13,9 +13,19 @@
 </head>
 
 <body>
+    <div class="static-transition-overlay"></div>
     <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
+
+    <!-- Video Background -->
+    <div class="video-background-container">
+        <video autoplay muted loop playsinline class="back-video">
+            <source src="./assets/background_loop.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
 
     <!-- Preloader -->
     <div class="preloader">
@@ -58,27 +68,45 @@
     </nav>
 
     <!-- Mobile Overlay Menu -->
-    <div class="mobile-menu-overlay">
-        <div class="close-menu">X</div>
-        <div class="mobile-links">
-            <a href="#exclusive-archive">ARCHIVE</a>
-            <a href="#origins-section">ORIGINS</a>
-            <a href="#spanish-section">COLECCIÓN</a>
-            <a href="#future-drop-section">FUTURE</a>
-            <a href="lab.html">THE LAB</a>
-            <a href="about.html">MANIFESTO</a>
-        </div>
-    </div>
+    <!-- Side Navigation (Consolidated) -->
+    <button class="menu-toggle" aria-label="Toggle Navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+    <nav class="side-nav">
+        <ul class="nav-links">
+            <li><a href="#exclusive-archive" data-text="ARCHIVE">ARCHIVE</a></li>
+            <li><a href="#origins-section" data-text="ORIGINS">ORIGINS</a></li>
+            <li><a href="#spanish-section" data-text="COLECCIÓN">COLECCIÓN</a></li>
+            <li><a href="#future-drop-section" data-text="FUTURE">FUTURE</a></li>
+            <li><a href="#lab.html" data-text="THE LAB">THE LAB</a></li>
+            <li><a href="about.html" data-text="MANIFESTO">MANIFESTO</a></li>
+        </ul>
+    </nav>
 
     <header class="hero">
         <div class="hero-bg-glow"></div>
         <div class="container hero-content fade-in">
-            <h1 class="glitch-text" data-text="JONI BOIS">JONI BOIS</h1>
+            <div class="logo-wrapper">
+                <div class="sigil-container">
+                    <svg viewBox="0 0 800 600" class="cyber-sigil aggressive">
+                        <path
+                            d="M400,50 L415,180 L550,110 L460,230 L750,250 L460,270 L550,490 L415,320 L400,550 L385,320 L250,490 L340,270 L50,250 L340,230 L250,110 L385,180 Z 
+                                 M400,150 L430,220 L500,200 L440,250 L600,250 L440,260 L500,320 L430,280 L400,450 L370,280 L300,320 L360,260 L200,250 L360,250 L300,200 L370,220 Z" />
+                    </svg>
+                </div>
+                <h1 class="hero-logo">JONI BOIS</h1>
+            </div>
             <p class="subtitle">A-RT // STREETWEAR // EST. 2021</p>
             <div class="hero-buttons" style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
                 <a href="#exclusive-archive" class="btn-hero">ENTER THE ARCHIVE</a>
                 <a href="about.html" class="btn-hero" style="border: 1px solid #fff; background: transparent;">READ THE
                     MANIFESTO</a>
+            </div>
+
+            <div class="power-statement centered">
+                <p>PURPOSE IN THE PROCESS // RIGOR IN THE DESIGN</p>
             </div>
         </div>
     </header>
